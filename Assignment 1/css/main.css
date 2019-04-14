@@ -100,3 +100,8 @@ label {
 .arrayTitle {
   margin-bottom: 10px;
 }
+.finalOutputs {
+  max-width: 100%;
+  overflow: hidden;
+  word-break: break-all;
+}

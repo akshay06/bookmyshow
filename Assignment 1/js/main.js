@@ -7,8 +7,10 @@ const userInputDiv = document.querySelector("#userInput");
 const duplicateElementsDiv = document.querySelector("#duplicateElements");
 const errorDiv = document.querySelector("#errorDiv");
 const allowedRegex = /^[0-9\,\-]*$/;
+
 let singleNumbersList = [];
 let allRangesArray = [];
+let rangeList = [];
 submitBtn.disabled = true;
 
 actualListDiv.innerHTML = '['+predefinedArray+']';
@@ -40,27 +42,27 @@ function validateInput(ev) {
 
 function splitInputToArray(userInput) {
   const inputArray = userInput.split(',');
-  singleNumbersList = inputArray.filter(input => !input.includes('-')).map(input => Number(input));
-  const rangeList = inputArray.filter(input => {
+  inputArray.forEach(input => {
     if(input.includes('-')) {
-      return true;
+      rangeList.push(input);
+    } else {
+      singleNumbersList.push(Number(input))
     }
   });
-  allRangesArray = rangeList.map(range => {
+  rangeList.forEach(range => {
     const rangeNumbers = range.split('-');
     const firstNumber = Number(rangeNumbers[0]);
     const lastNumber = Number(rangeNumbers[1]);
-    let rangeArray = [];
     if(rangeNumbers.length > 2) {
       errorDiv.innerHTML = 'Invalid range, please enter single hyphen seperated range';
     } else if (firstNumber > lastNumber) {
       errorDiv.innerHTML = 'Invalid range, please enter in ascending order';
     } else {
-      for(let i=firstNumber; i<= lastNumber; i++) {
-        rangeArray.push(i);
-      }
       errorDiv.innerHTML = '';
-      return rangeArray;
+      // for(let i=firstNumber; i<= lastNumber; i++) {
+      //   rangeArray.push(i);
+      // }
+      // return rangeArray;
     }
   });
 }
@@ -71,23 +73,36 @@ function onSubmit(ev) {
     submitBtn.disabled = true;
     return false;
   }
-  let allRange = [];
   let finalArrayToShow = [];
   let duplicateElements = [];
-  let finalArray = [];
-  allRangesArray.forEach(singleArray => {
-    allRange.push(...singleArray);
-  });
-  finalArray.push(...predefinedArray,...singleNumbersList, ...allRange);
-  finalArray.forEach(val => {
-    if(!finalArrayToShow.includes(val)) {
-      finalArrayToShow.push(val);
-      finalArrayDiv.innerHTML = '['+finalArrayToShow+']';
-    } else {
-      duplicateElements.push(val);
-      duplicateElementsDiv.innerHTML = '['+duplicateElements+']';
+  rangeList.forEach(range => {
+    const rangeNumbers = range.split('-');
+    const firstNumber = Number(rangeNumbers[0]);
+    const lastNumber = Number(rangeNumbers[1]);
+    for(let i=firstNumber; i<= lastNumber; i++) {
+      if(finalArrayToShow.includes(i) || duplicateElements.includes(i)) {
+        continue;
+      }
+      if (predefinedArray.includes(i)) {
+        duplicateElements.push(i);
+      } else {
+        finalArrayToShow.push(i);
+      }
     }
   });
+  singleNumbersList.forEach(i => {
+    if(finalArrayToShow.includes(i) || duplicateElements.includes(i)) {
+      return;
+    }
+    if (predefinedArray.includes(i)) {
+      duplicateElements.push(i);
+    } else {
+      finalArrayToShow.push(i);
+    }
+  });
+  finalArrayToShow = [...predefinedArray,...finalArrayToShow];
+  finalArrayDiv.innerHTML = '['+finalArrayToShow+']';
+  duplicateElementsDiv.innerHTML = '['+duplicateElements+']';
   if (duplicateElements.length === 0) {
       duplicateElementsDiv.innerHTML = '[]';
   }
