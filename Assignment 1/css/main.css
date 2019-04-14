@@ -1,0 +1,102 @@
+body {
+  margin: 0;
+  font-family: sans-serif;
+}
+#actualArray {
+  margin-left: 10px;
+}
+@media screen and (max-width: 480px) {
+  #actualArray {
+    margin-left: 0;
+    display: block;
+    margin-top: 10px;
+  }
+}
+.assignementHeading {
+  text-align: center;
+}
+.contentWrapper {
+  padding: 0 20px;
+}
+.predefinedList {
+  margin-bottom: 20px;
+}
+.inputWrapper {
+  padding: 20px;
+  background: #d4ddde;
+  color: #000000ba;
+  border-radius: 6px;
+  margin-bottom: 20px;
+}
+label {
+  display: block;
+}
+.inputBox {
+  width: 300px;
+  font-size: 20px;
+  outline: none;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 6px;
+  border: none;
+  max-width: calc(100% - 20px);
+}
+.errorMsg {
+  color: #ad4114;
+  letter-spacing: 0.4px;
+  font-size: 14px;
+  margin-bottom: 20px;
+  height: 18px;
+  opacity: 0;
+  transition: all 200ms linear;
+}
+.submitBtn {
+  height: 35px;
+  width: 80px;
+  border-radius: 4px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+  cursor: pointer;
+  color: white;
+  background: rgba(0,0,0,0.8);
+  transition: all 200ms linear;
+}
+.submitBtn:hover {
+  background: rgba(0,0,0,1);
+}
+.submitBtn[disabled] {
+  background: rgba(0,0,0,0.3);
+  cursor: not-allowed;
+}
+.resetBtn {
+  height: 24px;
+  border-radius: 4px;
+  border: none;
+  outline: none;
+  font-size: 13px;
+  cursor: pointer;
+  color: white;
+  background: rgba(0,0,0,0.8);
+  transition: all 200ms linear;
+}
+.resetBtn:hover {
+  background: rgba(0,0,0,1);
+}
+.finalArrayWrapper, .duplicateArrayWrapper {
+  background: powderblue;
+  margin-bottom: 20px;
+  padding: 20px;
+  border-radius: 6px;
+  font-size: 18px;
+  font-weight: 400;
+  color: rgba(0,0,0,0.8);
+}
+.duplicateArrayWrapper {
+  background: mistyrose;
+}
+.arrayTitle {
+  margin-bottom: 10px;
+}
